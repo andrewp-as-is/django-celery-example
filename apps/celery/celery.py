@@ -3,7 +3,7 @@ from django.conf import settings
 import os
 from celery import Celery
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.dev')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.prod')
 app = Celery(main='django_sqs_example')
 app.config_from_object('django.conf:settings')
 
