@@ -1,0 +1,35 @@
+- name: github_blog docker
+# ssh github_blog
+  hosts: github_blog
+  become: yes
+  vars:
+    container_name: "github_blog"
+    container_image: "andrewpasis/github_blog"
+    env_file: "/home/ubuntu/github_blog/.env"
+
+  tasks:
+  - name: install pip3
+    apt:
+      name: python3-pip
+      update_cache: yes
+      state: present
+  - name: pip install docker-py
+    pip: name=docker-py
+
+  - name: Start a container and use an env file
+    docker_container:
+      name: "{{ container_name }}"
+      image: "{{ container_image }}"
+      pull: true
+      state: started
+      restart: yes
+      ports:
+       - "80:8000"
+       - "8001:8001"
+      env_file: "{{ env_file }}"
+
+  - name: collect_github
+    shell: 'docker exec -it "$(sudo docker ps -qf name=github_blog)" python manage.py migrate --settings=settings.prod'
+
+
+# docker exec -it "$(sudo docker ps -qf name=github_blog)" sh

@@ -1,0 +1,6 @@
+boto3
+celery
+Django
+django_celery_beat
+djcelery
+pycurl
