@@ -4,3 +4,4 @@ celery
 Django
 django_celery_beat
 django-celery
+supervisor
