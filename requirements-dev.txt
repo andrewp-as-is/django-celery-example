@@ -1,3 +1,4 @@
+anyjson
 boto3
 celery
 Django
