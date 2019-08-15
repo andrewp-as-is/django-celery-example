@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-import logging
+import djcelery
 import os
 from ._base_django import *
 
-import djcelery
 djcelery.setup_loader()
 
 # AWS Credentials
