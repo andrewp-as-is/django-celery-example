@@ -9,9 +9,9 @@ app.config_from_object('django.conf:settings')
 
 app.autodiscover_tasks(settings.INSTALLED_APPS)
 app.conf.beat_schedule = {
-    'display_time-30-seconds': {
+    'display_time-x-seconds': {
         'task': 'apps.demoapp.tasks.display_time',
-        'schedule': 10.0,
+        'schedule': 2.0,
         'args': (1,2)
     },
 }
@@ -36,7 +36,7 @@ def debug_task(self):
 -l info
 
 celery -A apps.celery worker -l debug
-celery -A apps.celery worker -l info
+celery -A apps.celery worker --pool=gevent --concurrency=50 -l info
 
 celery -A apps.celery beat -l debug -S django_celery_beat.schedulers.DatabaseScheduler
 """
